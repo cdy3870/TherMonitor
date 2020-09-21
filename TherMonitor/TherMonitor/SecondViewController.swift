@@ -7,13 +7,23 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SecondViewController: UIViewController {
 
+    @IBOutlet weak var VStack: UIStackView!
+    
+    @IBOutlet weak var HStack: UIStackView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
+    
+    
+
+    
 
 
 }
