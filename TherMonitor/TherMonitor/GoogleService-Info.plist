@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>940387279729-gk92ofutg2om6o3gnuboi87nh9dmlh4f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.940387279729-gk92ofutg2om6o3gnuboi87nh9dmlh4f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBOhZvzsYSIqZL7TQqZCnJEhGuMi3QPNB4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>940387279729</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.alyssajordan.TherMonitor</string>
+	<key>PROJECT_ID</key>
+	<string>thermonitor-f2d55</string>
+	<key>STORAGE_BUCKET</key>
+	<string>thermonitor-f2d55.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:940387279729:ios:5367544bbb686ade82ccd0</string>
+	<key>DATABASE_URL</key>
+	<string>https://thermonitor-f2d55.firebaseio.com</string>
+</dict>
+</plist>
