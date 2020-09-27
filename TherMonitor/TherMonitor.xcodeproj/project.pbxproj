@@ -14,9 +14,13 @@
 		EC4786AB2517D0ED00FE023A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC4786AA2517D0ED00FE023A /* Assets.xcassets */; };
 		EC4786AE2517D0ED00FE023A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC4786AC2517D0ED00FE023A /* LaunchScreen.storyboard */; };
 		ECAF29DE25182B180098896C /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAF29DD25182B180098896C /* ThirdViewController.swift */; };
+		F675FEE5316BCEC100D7C0B3 /* Pods_TherMonitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80695C94FBF1BFC7906EB66C /* Pods_TherMonitor.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51978ED8E38154B98F47457D /* Pods-TherMonitor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TherMonitor.debug.xcconfig"; path = "Target Support Files/Pods-TherMonitor/Pods-TherMonitor.debug.xcconfig"; sourceTree = "<group>"; };
+		80695C94FBF1BFC7906EB66C /* Pods_TherMonitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TherMonitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CE2FF198A3E99D34854647E /* Pods-TherMonitor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TherMonitor.release.xcconfig"; path = "Target Support Files/Pods-TherMonitor/Pods-TherMonitor.release.xcconfig"; sourceTree = "<group>"; };
 		EC47869E2517D0EC00FE023A /* TherMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TherMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC4786A12517D0EC00FE023A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC4786A32517D0EC00FE023A /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -33,17 +37,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F675FEE5316BCEC100D7C0B3 /* Pods_TherMonitor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9917E7C25177309DB64D5F6D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				51978ED8E38154B98F47457D /* Pods-TherMonitor.debug.xcconfig */,
+				8CE2FF198A3E99D34854647E /* Pods-TherMonitor.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AEE9D9467700C02E3EBC770A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				80695C94FBF1BFC7906EB66C /* Pods_TherMonitor.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EC4786952517D0EC00FE023A = {
 			isa = PBXGroup;
 			children = (
 				EC4786A02517D0EC00FE023A /* TherMonitor */,
 				EC47869F2517D0EC00FE023A /* Products */,
+				9917E7C25177309DB64D5F6D /* Pods */,
+				AEE9D9467700C02E3EBC770A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,9 +102,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC4786B22517D0ED00FE023A /* Build configuration list for PBXNativeTarget "TherMonitor" */;
 			buildPhases = (
+				6CF269CE3DAECAA5106AF543 /* [CP] Check Pods Manifest.lock */,
 				EC47869A2517D0EC00FE023A /* Sources */,
 				EC47869B2517D0EC00FE023A /* Frameworks */,
 				EC47869C2517D0EC00FE023A /* Resources */,
+				733385C277F617461E14ED39 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -135,6 +162,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6CF269CE3DAECAA5106AF543 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TherMonitor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		733385C277F617461E14ED39 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TherMonitor/Pods-TherMonitor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TherMonitor/Pods-TherMonitor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TherMonitor/Pods-TherMonitor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC47869A2517D0EC00FE023A /* Sources */ = {
@@ -288,6 +357,7 @@
 		};
 		EC4786B32517D0ED00FE023A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51978ED8E38154B98F47457D /* Pods-TherMonitor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -306,6 +376,7 @@
 		};
 		EC4786B42517D0ED00FE023A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CE2FF198A3E99D34854647E /* Pods-TherMonitor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
