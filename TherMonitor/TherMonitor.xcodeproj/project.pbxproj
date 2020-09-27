@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		EC4786A92517D0EC00FE023A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC4786A72517D0EC00FE023A /* Main.storyboard */; };
 		EC4786AB2517D0ED00FE023A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC4786AA2517D0ED00FE023A /* Assets.xcassets */; };
 		EC4786AE2517D0ED00FE023A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC4786AC2517D0ED00FE023A /* LaunchScreen.storyboard */; };
+		EC9BF8CA25214C2700CFD08A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EC9BF8C925214C2600CFD08A /* GoogleService-Info.plist */; };
 		ECAF29DE25182B180098896C /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAF29DD25182B180098896C /* ThirdViewController.swift */; };
 		F675FEE5316BCEC100D7C0B3 /* Pods_TherMonitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80695C94FBF1BFC7906EB66C /* Pods_TherMonitor.framework */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 		EC4786AA2517D0ED00FE023A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC4786AD2517D0ED00FE023A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC4786AF2517D0ED00FE023A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC9BF8C925214C2600CFD08A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECAF29DD25182B180098896C /* ThirdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -50,7 +52,6 @@
 				51978ED8E38154B98F47457D /* Pods-TherMonitor.debug.xcconfig */,
 				8CE2FF198A3E99D34854647E /* Pods-TherMonitor.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -91,6 +92,7 @@
 				EC4786AA2517D0ED00FE023A /* Assets.xcassets */,
 				EC4786AC2517D0ED00FE023A /* LaunchScreen.storyboard */,
 				EC4786AF2517D0ED00FE023A /* Info.plist */,
+				EC9BF8C925214C2600CFD08A /* GoogleService-Info.plist */,
 			);
 			path = TherMonitor;
 			sourceTree = "<group>";
@@ -156,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC4786AE2517D0ED00FE023A /* LaunchScreen.storyboard in Resources */,
+				EC9BF8CA25214C2700CFD08A /* GoogleService-Info.plist in Resources */,
 				EC4786AB2517D0ED00FE023A /* Assets.xcassets in Resources */,
 				EC4786A92517D0EC00FE023A /* Main.storyboard in Resources */,
 			);

@@ -7,5 +7,7 @@ target 'TherMonitor' do
 
   # Pods for TherMonitor
   pod 'Charts'
-
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
 end
