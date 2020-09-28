@@ -12,6 +12,7 @@ import Charts
 class SecondViewController: UIViewController {
     
     @IBOutlet weak var barChart: BarChartView!
+    @IBOutlet weak var curDay: UILabel!
     
     
     var set = BarChartDataSet(entries: [
@@ -44,6 +45,47 @@ class SecondViewController: UIViewController {
         
         let data = BarChartData(dataSet: set)
         barChart.data = data
+        
+        let currentDateTime = Date()
+        //let formatter = DateFormatter()
+        //formatter.dateFormat = "yyyy-MM-dd"
+        //formatter.timeStyle = .medium
+        //formatter.dateStyle = .long
+        //let dateTimeString = formatter.string(from: currentDateTime)
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: currentDateTime)
+        
+        var currentDay = ""
+        switch weekDay {
+        case 1:
+            currentDay = "Sunday"
+            break
+        case 2:
+            currentDay = "Monday"
+            break
+        case 3:
+            currentDay = "Tuesday"
+            break
+        case 4:
+            currentDay = "Wednesday"
+            break
+        case 5:
+            currentDay = "Thursday"
+            break
+        case 6:
+            currentDay = "Friday"
+            break
+        case 7:
+            currentDay = "Saturday"
+            break
+        default:
+            currentDay = ""
+        }
+        curDay.text = currentDay
+        
+        
     }
+    
+    
 }
 

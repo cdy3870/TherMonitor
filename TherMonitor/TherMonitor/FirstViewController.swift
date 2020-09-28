@@ -55,7 +55,7 @@ class FirstViewController: UIViewController {
 
         })
         
-        //currentRoomCap.text = String(total_room_occupancy)
+        
      }
 
 
