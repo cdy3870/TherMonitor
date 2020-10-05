@@ -27,7 +27,7 @@ class FirstViewController: UIViewController {
    
         ref = Database.database().reference()
 
-        databaseHandle = ref?.child("Test").observe(.childAdded, with: { (snapshot) in
+        databaseHandle = ref?.child("door_events").observe(.childAdded, with: { (snapshot) in
             
             
             // code to execute when a child is added under "Events"

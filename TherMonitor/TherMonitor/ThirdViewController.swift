@@ -55,6 +55,7 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(8),y: Double(3)),
                 BarChartDataEntry(x: Double(9),y: Double(9)),
                 BarChartDataEntry(x: Double(10),y: Double(4))
+            
         ])
         
         let data = BarChartData(dataSet: set)
@@ -104,7 +105,7 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(5),y: Double(1)),
                 BarChartDataEntry(x: Double(6),y: Double(3)),
                 BarChartDataEntry(x: Double(7),y: Double(8)),
-                BarChartDataEntry(x: Double(8),y: Double(0)),
+                BarChartDataEntry(x: Double(8),y: Double(3)),
                 BarChartDataEntry(x: Double(9),y: Double(3)),
                 BarChartDataEntry(x: Double(10),y: Double(9))
         ])
@@ -132,7 +133,7 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(7),y: Double(4)),
                 BarChartDataEntry(x: Double(8),y: Double(8)),
                 BarChartDataEntry(x: Double(9),y: Double(1)),
-                BarChartDataEntry(x: Double(10),y: Double(0))
+                BarChartDataEntry(x: Double(10),y: Double(2))
         ])
         
         
