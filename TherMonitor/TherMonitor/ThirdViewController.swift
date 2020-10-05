@@ -20,14 +20,39 @@ class ThirdViewController: UIViewController {
     @IBOutlet weak var thurs: UIButton!
     @IBOutlet weak var fri: UIButton!
     @IBOutlet weak var sat: UIButton!
-    //var day: UIButton
     
     var set = BarChartDataSet()
-    var hours = ["","8am","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"]
+    //var hours = ["","8am","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let data = BarChartData(dataSet: set)
+        weekBarChart.data = data
+        
+        let currentTime = Date()
+        var calendar = Calendar.current
+        
+        if let timeZone = TimeZone(identifier: "EST"){
+            calendar.timeZone = timeZone
+        }
+        
+        let hour = calendar.component(.hour, from: currentTime)
+        let minute = calendar.component(.minute, from: currentTime)
+        
+        var curHour = 0
+        
+        if (minute < 30){
+            curHour = hour
+        }
+        else{
+            curHour = hour + 1
+        }
+        
+        let allHours = ["1am","2am","3am","4am","5am","6am","7am","8am","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm","12am"]
+        
+        let hours = Array(allHours[curHour-6...curHour+4])
 
         // Do any additional setup after loading the view.
         weekBarChart.rightAxis.enabled = false
@@ -38,8 +63,7 @@ class ThirdViewController: UIViewController {
         weekBarChart.xAxis.setLabelCount(9, force: false)
         weekBarChart.xAxis.valueFormatter = IndexAxisValueFormatter(values:hours)
         
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
+        
         
     }
     
