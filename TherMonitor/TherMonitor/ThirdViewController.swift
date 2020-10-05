@@ -20,6 +20,7 @@ class ThirdViewController: UIViewController {
     @IBOutlet weak var thurs: UIButton!
     @IBOutlet weak var fri: UIButton!
     @IBOutlet weak var sat: UIButton!
+    //var day: UIButton
     
     var set = BarChartDataSet()
     var hours = ["","8am","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"]
@@ -42,6 +43,18 @@ class ThirdViewController: UIViewController {
         
     }
     
+    func makeBarChart(day: UIButton){
+        let data = BarChartData(dataSet: set)
+        weekBarChart.data = data
+        self.sun.backgroundColor = UIColor.white
+        self.mon.backgroundColor = UIColor.white
+        self.tues.backgroundColor = UIColor.white
+        self.wed.backgroundColor = UIColor.white
+        self.thurs.backgroundColor = UIColor.white
+        self.fri.backgroundColor = UIColor.white
+        self.sat.backgroundColor = UIColor.white
+        day.backgroundColor = UIColor.lightGray
+    }
     
     @IBAction func sunday(_ sender: Any) {
         set = BarChartDataSet(entries: [
@@ -58,15 +71,7 @@ class ThirdViewController: UIViewController {
             
         ])
         
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
-        self.sun.backgroundColor = UIColor.lightGray
-        self.mon.backgroundColor = UIColor.white
-        self.tues.backgroundColor = UIColor.white
-        self.wed.backgroundColor = UIColor.white
-        self.thurs.backgroundColor = UIColor.white
-        self.fri.backgroundColor = UIColor.white
-        self.sat.backgroundColor = UIColor.white
+        makeBarChart(day: sun)
         
     }
     
@@ -83,17 +88,8 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(9),y: Double(2)),
                 BarChartDataEntry(x: Double(10),y: Double(8))
         ])
-        
-        
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
-        self.mon.backgroundColor = UIColor.lightGray
-        self.sun.backgroundColor = UIColor.white
-        self.tues.backgroundColor = UIColor.white
-        self.wed.backgroundColor = UIColor.white
-        self.thurs.backgroundColor = UIColor.white
-        self.fri.backgroundColor = UIColor.white
-        self.sat.backgroundColor = UIColor.white
+
+        makeBarChart(day: mon)
     }
     
     @IBAction func tuesday(_ sender: Any) {
@@ -110,16 +106,7 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(10),y: Double(9))
         ])
         
-        
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
-        self.tues.backgroundColor = UIColor.lightGray
-        self.sun.backgroundColor = UIColor.white
-        self.mon.backgroundColor = UIColor.white
-        self.wed.backgroundColor = UIColor.white
-        self.thurs.backgroundColor = UIColor.white
-        self.fri.backgroundColor = UIColor.white
-        self.sat.backgroundColor = UIColor.white
+        makeBarChart(day: tues)
     }
     
     @IBAction func wednesday(_ sender: Any) {
@@ -135,17 +122,8 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(9),y: Double(1)),
                 BarChartDataEntry(x: Double(10),y: Double(2))
         ])
-        
-        
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
-        self.wed.backgroundColor = UIColor.lightGray
-        self.sun.backgroundColor = UIColor.white
-        self.mon.backgroundColor = UIColor.white
-        self.tues.backgroundColor = UIColor.white
-        self.thurs.backgroundColor = UIColor.white
-        self.fri.backgroundColor = UIColor.white
-        self.sat.backgroundColor = UIColor.white
+
+        makeBarChart(day: wed)
     }
     
     @IBAction func thursday(_ sender: Any) {
@@ -161,17 +139,8 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(9),y: Double(2)),
                 BarChartDataEntry(x: Double(10),y: Double(2))
         ])
-        
-        
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
-        self.thurs.backgroundColor = UIColor.lightGray
-        self.sun.backgroundColor = UIColor.white
-        self.mon.backgroundColor = UIColor.white
-        self.tues.backgroundColor = UIColor.white
-        self.wed.backgroundColor = UIColor.white
-        self.fri.backgroundColor = UIColor.white
-        self.sat.backgroundColor = UIColor.white
+
+        makeBarChart(day: thurs)
     }
     
     @IBAction func friday(_ sender: Any) {
@@ -188,16 +157,7 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(10),y: Double(2))
         ])
         
-        
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
-        self.fri.backgroundColor = UIColor.lightGray
-        self.sun.backgroundColor = UIColor.white
-        self.mon.backgroundColor = UIColor.white
-        self.tues.backgroundColor = UIColor.white
-        self.wed.backgroundColor = UIColor.white
-        self.thurs.backgroundColor = UIColor.white
-        self.sat.backgroundColor = UIColor.white
+        makeBarChart(day: fri)
     }
     
     @IBAction func saturday(_ sender: Any) {
@@ -214,16 +174,7 @@ class ThirdViewController: UIViewController {
                 BarChartDataEntry(x: Double(10),y: Double(2))
         ])
         
-        
-        let data = BarChartData(dataSet: set)
-        weekBarChart.data = data
-        self.sat.backgroundColor = UIColor.lightGray
-        self.sun.backgroundColor = UIColor.white
-        self.mon.backgroundColor = UIColor.white
-        self.tues.backgroundColor = UIColor.white
-        self.wed.backgroundColor = UIColor.white
-        self.thurs.backgroundColor = UIColor.white
-        self.fri.backgroundColor = UIColor.white
+        makeBarChart(day: sat)
     }
     
 }
