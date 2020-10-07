@@ -8,12 +8,15 @@
 
 import UIKit
 import Charts
+import FirebaseDatabase
 
 class SecondViewController: UIViewController {
 
     @IBOutlet weak var barChart: BarChartView!
     @IBOutlet weak var curDay: UILabel!
 
+    var databaseHandle: DatabaseHandle?
+    var ref: DatabaseReference?
 
 	// y value is the occupancy for that given hour
   var set = BarChartDataSet(entries: [
@@ -36,11 +39,6 @@ class SecondViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         let currentDate = Date()
-        //let formatter = DateFormatter()
-        //formatter.dateFormat = "yyyy-MM-dd"
-        //formatter.timeStyle = .medium
-        //formatter.dateStyle = .long
-        //let dateTimeString = formatter.string(from: currentDateTime)
         let myCalendar = Calendar(identifier: .gregorian)
         let weekDay = myCalendar.component(.weekday, from: currentDate)
 
@@ -117,47 +115,47 @@ class SecondViewController: UIViewController {
         // extract data from database
         databaseHandle = ref?.child("Events").observe(.childAdded, with: { (snapshot) in
 
-            let values = snapshot.value as? String
-            var event_timestamp = values["timestamp"]
-            let event_date = NSDate(timeIntervalSince1970: event_timestamp)
+            let values = snapshot.value as? NSDictionary
+            var event_timestamp = values!["timestamp"]
+            let event_date = NSDate(timeIntervalSince1970: event_timestamp as! TimeInterval)
 
             // from this timestamp, we can get the time of day, the day, the month
-            let current_date = Date()
+            //let current_date = Date()
             let calendar = Calendar.current
-            let event_components = calendar.dateComponents([.year, .month, .weekday, .hour], from: event_date)
-            let event_year = event_components.year
-            let event_month = event_components.month
+            let event_components = calendar.dateComponents([.year, .month, .weekday, .hour], from: event_date as Date)
+            //let event_year = event_components.year
+            //let event_month = event_components.month
             let event_day = event_components.weekday
             let event_hour = event_components.hour
 
             // here is where the logic will be to append values to the daily and weekly traffic analysis
 
             // check if the event day matches the current day
-            if(event_day = self.weekDay)
+            if(event_day == weekDay)
             {
                 // the event occured during this day, now update the room occupancy for the associated hour
-                if (values["direction"] == "entry") {
-                    self.occupancy_per_hour[event_hour]+=1
+                if (values!["direction"] as! String == "entry") {
+                    occupancy_per_hour[event_hour!]+=1
                 }
-                else if (values["direction"] == "exit"){
-                    self.occupancy_per_hour[event_hour]-=1
+                else if (values!["direction"] as! String == "exit"){
+                    occupancy_per_hour[event_hour!]-=1
                 }
 
             }
 
-            self.occupancies_shown = Array(occupancy_per_hour[self.curHour-6...self.curHour+4])
+            occupancies_shown = Array(occupancy_per_hour[curHour-6...curHour+4])
 
             var updated_set = BarChartDataSet(entries: [
-                      BarChartDataEntry(x: Double(1),y: self.occupancies_shown[0]),
-                      BarChartDataEntry(x: Double(2),y: self.occupancies_shown[1]),
-                      BarChartDataEntry(x: Double(3),y: self.occupancies_shown[2]),
-                      BarChartDataEntry(x: Double(4),y: self.occupancies_shown[3]),
-                      BarChartDataEntry(x: Double(5),y: self.occupancies_shown[4]),
-                      BarChartDataEntry(x: Double(6),y: self.occupancies_shown[5]),
-                      BarChartDataEntry(x: Double(7),y: self.occupancies_shown[6]),
-                      BarChartDataEntry(x: Double(8),y: self.occupancies_shown[7]),
-                      BarChartDataEntry(x: Double(9),y: self.occupancies_shown[8]),
-                      BarChartDataEntry(x: Double(10),y: self.occupancies_shown[9])
+                      BarChartDataEntry(x: Double(1),y: occupancies_shown[0]),
+                      BarChartDataEntry(x: Double(2),y: occupancies_shown[1]),
+                      BarChartDataEntry(x: Double(3),y: occupancies_shown[2]),
+                      BarChartDataEntry(x: Double(4),y: occupancies_shown[3]),
+                      BarChartDataEntry(x: Double(5),y: occupancies_shown[4]),
+                      BarChartDataEntry(x: Double(6),y: occupancies_shown[5]),
+                      BarChartDataEntry(x: Double(7),y: occupancies_shown[6]),
+                      BarChartDataEntry(x: Double(8),y: occupancies_shown[7]),
+                      BarChartDataEntry(x: Double(9),y: occupancies_shown[8]),
+                      BarChartDataEntry(x: Double(10),y: occupancies_shown[9])
               ], label: "Hour")
 
               self.barChart.data = BarChartData(dataSet: updated_set)
