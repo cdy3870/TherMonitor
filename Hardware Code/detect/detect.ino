@@ -1,3 +1,4 @@
+
 #include <Firebase_Arduino_WiFiNINA.h>
 #include <Firebase_Arduino_WiFiNINA_HTTPClient.h>
 #include <WiFiNINA.h>
@@ -23,15 +24,15 @@ FirebaseData firebaseData;
 
 /* Analog Pins */
 int analogPin1 = A1; 
-int analogPin2 = A2;
+int analogPin2 = A3;
 
 /* Digital Pins */
 //int interruptPin = 2;
 //int digitalPin = 3;
 
 /* Times */
-int time1 = 0;
-int time2 = 0;
+unsigned long time1 = 0;
+unsigned long time2 = 0;
 
 int count = 1;
 
@@ -65,7 +66,7 @@ void setup() {
 void loop() {
   /* Analog Readings */
   int sensorVal1 = 0;
-//  int sensorVal2 = 0;
+  int sensorVal2 = 0;
 
   /* Reading from sensors */  
   sensorVal1 = analogRead(analogPin1);
@@ -81,25 +82,38 @@ void loop() {
 
 int checkSensor(int sensorVal, int analogPin, int id){  
   /* Detection "Algorithm" */
-  if(sensorVal > 210){
-    Serial.print(sensorVal);
+  if(sensorVal > 240){
+    Serial.print(id);
     Serial.println(" Entry/Exit");
 
 //    digitalWrite(digitalPin, HIGH);
-    if(id = 1) time1 = millis();
-    else time2 = millis();
+    if(id = 1){
+      time1 = millis();
+      Serial.print("Time 1: ");
+      Serial.println(time1);
+      Serial.print("Time 2: ");
+      Serial.println(time2);
+    }
+    else{
+      time2 = millis();
+      Serial.print("Time 1: ");
+       Serial.println(time1);
+      Serial.print("Time 2: ");
+      Serial.println(time2);
+    }
     if(time1 > time2)uploadToFirebase("Entry");
     else uploadToFirebase("Exit");
     
-    while(sensorVal > 210){
-      sensorVal = analogRead(analogPin);
-    }
+    //while(sensorVal > 210){
+    //  sensorVal = analogRead(analogPin);
+    //}
     delay(500);
   }
 }
 
 void uploadToFirebase(String dir){
   /* Interfacing with Firebase */
+
   String path = "/Data";
   String count2 = String(count);
   count += 1;
@@ -111,5 +125,3 @@ void uploadToFirebase(String dir){
     Serial.println("Error reason: " + firebaseData.errorReason());
   }
 }
-
-
