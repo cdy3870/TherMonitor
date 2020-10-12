@@ -23,7 +23,7 @@ FirebaseData firebaseData;
 
 /* Analog Pins */
 int analogPin1 = A1; 
-//int analogPin2 = A2;
+int analogPin2 = A2;
 
 /* Digital Pins */
 //int interruptPin = 2;
@@ -70,11 +70,11 @@ void loop() {
   /* Reading from sensors */  
   sensorVal1 = analogRead(analogPin1);
   Serial.println(sensorVal1);
-//  sensorVal2 = analogRead(analogPin2);
-//  Serial.println(sensorVal1);
+  sensorVal2 = analogRead(analogPin2);
+  Serial.println(sensorVal1);
 
   checkSensor(sensorVal1, analogPin1, 1);
-//  checkSensor(sensorVal2, analogPin2, 2);
+  checkSensor(sensorVal2, analogPin2, 2);
   
 
 }
@@ -83,7 +83,7 @@ int checkSensor(int sensorVal, int analogPin, int id){
   /* Detection "Algorithm" */
   if(sensorVal > 210){
     Serial.print(sensorVal);
-    Serial.println(" Entry");
+    Serial.println(" Entry/Exit");
 
 //    digitalWrite(digitalPin, HIGH);
     if(id = 1) time1 = millis();
@@ -103,7 +103,7 @@ void uploadToFirebase(String dir){
   String path = "/Data";
   String count2 = String(count);
   count += 1;
-  String jsonData = "{\"Timestamp\":\"231321546\", \"Direction\":\"Entry\", \"Count\":\"" + count2 + "\"}";
+  String jsonData = "{\"Timestamp\":\"231321546\", \"Direction\":\"" + dir + "\", \"Count\":\"" + count2 + "\"}";
   if(Firebase.setJSON(firebaseData, path, jsonData)){ // set sensorVal1ue in Firebase 
     Serial.println("data successfully pushed to Firebase");
   }  
