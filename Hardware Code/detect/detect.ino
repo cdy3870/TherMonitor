@@ -1,3 +1,4 @@
+
 #include <Firebase_Arduino_WiFiNINA.h>
 #include <Firebase_Arduino_WiFiNINA_HTTPClient.h>
 #include <WiFiNINA.h>
@@ -32,10 +33,13 @@ int analogPin2 = A3;
 /* Times */
 unsigned long time1 = 0;
 unsigned long time2 = 0;
+<<<<<<< HEAD
 
 /* Other constants */
 float voltage = 5.0;
 int max_analog_value = 1023;
+=======
+>>>>>>> 4b1f33f31cf09c39e0165cf17c3fb1786ef224eb
 
 int count = 1;
 
@@ -135,7 +139,11 @@ int checkSensor(int sensorVal, int analogPin, int id){
     else{
       time2 = millis();
       Serial.print("Time 1: ");
+<<<<<<< HEAD
       Serial.println(time1);
+=======
+       Serial.println(time1);
+>>>>>>> 4b1f33f31cf09c39e0165cf17c3fb1786ef224eb
       Serial.print("Time 2: ");
       Serial.println(time2);
     }
