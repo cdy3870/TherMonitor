@@ -79,7 +79,7 @@ void loop() {
   /* Setting trigger times */
   setTriggerTime(1, distance1);
   setTriggerTime(2, distance2);
-  checkSensor();
+//  if(setTriggerTime(1, distance1) && setTriggerTime(2, distance2)) checkSensor();
 }
 
 int getDistance(int sensorVal){
@@ -91,23 +91,25 @@ int getDistance(int sensorVal){
   return distance;  
 }
 
-int setTriggerTime(int id, float distance){
+bool setTriggerTime(int id, float distance){
   if(distance < 70){
     if(id = 1){
       time1 = millis();
-      Serial.print("Time 1: ");
+      Serial.print("First Sensor Time 1: ");
       Serial.println(time1);
       Serial.print("Time 2: ");
       Serial.println(time2);
     }
     else{
       time2 = millis();
-      Serial.print("Time 1: ");
+      Serial.print("Second Sensor Time 1: ");
       Serial.println(time1);
       Serial.print("Time 2: ");
       Serial.println(time2);
     }
+    return true;
   }
+  return false;
 }
 
 int checkSensor() {
