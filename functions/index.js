@@ -3,159 +3,192 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-//
-//
-//
+var current_occupancy;
 
-class Hour
-{
-	constructor()
-	{
-		this.average_occupancy = 0;
+// Run function for every entry/exit
+//exports.get_current_occupancy = functions.pubsub.schedule("* * * * *").onRun((context) => {
+exports.get_current_occupancy = functions.database.ref("Events/{EventNum}").onCreate((snapshot,context) => {
 
-		// also initialize an empty list for room occupancies;
-    var occupancy_list = [];
-	}
+    //console.log("hi world");
+    // adjust room occupancy based on entry or exit
+    var direction_string = snapshot.val()["direction"];
 
-  addOccupancy(occupancy_update){
-    occupancy_list.push(occupancy_update);
-  }
-}
+    // get currect occupancy from db
+    const ro = admin.database().ref("RoomOccupancy");
+    ro.once("value", snapshot => {
+      var co = snapshot.val()["room1"];
+      console.log(snapshot.val()["room1"]);
 
-// day object
-class Day
-{
-	constructor()
-	{
-
-  }
-	// array of 24 hours
-
-}
-
-
-
-
-// hour object
-
-
-// array of 7 days
-// each day has an array of 24 hours
-// each hour has a list of doubles
-// each hour also has a variable for the average room occupancy
-
-
-//var current_occupancy;
-
-//
-// sudo code
-// for event in events:
-//   based on weekday
-//   based on hour
-//   append to list of room occupancies
-//
-// once this process is over
-// 	average up the weekday's hour's list of room occupancies
-// 	this will be
-//
-//
-//
-//
-//
-//
-//
-
-// create 7 days
-var days = new Array(7)
-for(var i = 0; i < days.length; i++)
-{
-  // create an array with 24 slots for every day
-  days[i] = new Array(24);
-  for(var j = 0; j < days[i].length; j++)
-  {
-    days[i][j] = new Array(2);
-    // list of current occupancies
-    days[i][j][0] = new Array();
-
-    // location of average
-    days[i][j][1] = 0;
-  }
-}
-
-function get_string_path(day, hour)
-{
-  var days = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-  var hours ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
-
-
-}
-
-exports.generate_occupancy_averages = functions.pubsub.schedule("* * * * *").onRun((context) => {
-
-  //console.log("inside of the scheduled function");
-  const testRef = admin.database().ref("Events")
-
-
-
-  var event_data = [[],[]]
-  var current_occupancy = 0
-
-  testRef.once("value", snapshot => {
-
-      snapshot.forEach(data => {
-
-          console.log(data.val()["direction"])
-          console.log(data.val()["timestamp"])
-          event_data[0].push(data.val()["direction"])
-          event_data[1].push(data.val()["timestamp"])
-          var direction_string = data.val()["direction"]
-
-          if(direction_string == "entry")
-          {
-            current_occupancy++;
-          }
-          else if(direction_string == "exit")
-          {
-            current_occupancy--;
-          }
-         // i might want to sort the data by time
-
-         // convert timestamp to weekday and hour of day
-         var event_date = new Date(data.val()["timestamp"]);
-
-         // weekday as a number from 0-6, can be used as index
-         var day = event_date.getDay();
-
-         // hour as a number from 0-23, can be used as index
-         var hour = event_date.getHours();
-
-         // append current occupancy to the list
-         days[day][hour][0].push(current_occupancy);
-
-         return false;
-      });
-
-      for(var i = 0; i < days.length; i++)
+      if(direction_string === "entry")
       {
-        for(var j = 0; j < days[i].length; j++)
-        {
-          var total = 0;
-          for(var z = 0; z < days[i][j][0].length; z++)
-          {
-            total+=days[i][j][0][z];
-          }
-          days[i][j][1] = total/days[i][j][0].length;
-          get_string_path(i,j);
-          // update the singular average for each hour of the 7 days
-
-        }
+        console.log("entry");
+        co++;
+      }
+      else if(direction_string === "exit")
+      {
+        console.log("exit");
+        co--;
       }
 
-  })
+      console.log(co);
+      // write back to db updated current occupancy
+      ro.set({
+        "room1": co
+      });
+      return 0;
+    });
 
-  return console.log("ending function");
+    //console.log("ending function");
+    return 0;
 
-});
+  });
+
+// Run function every hour 
+exports.generate_daily_occupancy_averages = functions.pubsub.schedule("5 * * * *").onRun((context) => {
+
+    // get currect occupancy from db
+    const ro = admin.database().ref("RoomOccupancy");
+    ro.once("value", snapshot => {
+      var co = snapshot.val()["room1"];
+      console.log(snapshot.val()["room1"]);
+
+      // determine current hour
+      var today = new Date();
+      var time = today.getHours(); // 0-23 
+      if (time >= 4){
+        time = time - 4;
+      }
+      else{
+        time = time + 20;
+      }
+
+      console.log("time: "+time);
+
+
+      // set save average occupancy to current hour
+      const daily_avg = admin.database().ref('DailyHourlyAverages/' +time);
+      daily_avg.set(co);
+
+      //String h = time.toString();
+      /*daily_avg.update({
+        h: co
+      });*/
+
+      return 0;
+
+    });
+
+    return 0;
+  
+  });
+
+// Run function once a day (every day at 23:59PM -> 11:59PM)
+exports.generate_weekly_occupancy_averages = functions.pubsub.schedule("19 * * * *").onRun((context) => {
+
+    // figure out current day of the week
+    var today = new Date();
+    var day_of_week = today.getDay() //0 = Sun, 1 = Mon, etc
+
+    // set up array to temp store averages
+    // create 7 days
+    var day = new Array(24);
+    for(var j = 0; j < day.length; j++)
+    {
+      day[j] = new Array(3);
+      // current total average
+      day[j][0] = 0;
+
+      // how many days this average is based on
+      day[j][1] = 0;
+
+      // new average
+      day[j][2] = 0;
+      
+    }
+
+    // get total averages for each hour for that specific day of the week
+    //String db_loc = '"WeeklyHourlyAverages/' + day_of_week +'"'
+
+    const weekly = admin.database().ref('WeeklyHourlyAverages/'+ day_of_week);
+
+    j = 0;
+    
+    weekly.once("value", snapshot => {
+      snapshot.forEach(data => {
+
+        day[j][0]=data.val()["average"];
+        day[j][1]=data.val()["days"];
+        console.log("average: "+ day[j][0]);
+        console.log("days: "+ day[j][1]);
+        j++;
+      });
+
+
+
+      // get current averages for each hour for that specific day 
+
+      const daily = admin.database().ref("DailyHourlyAverages");
+
+      j = 0;
+      
+      daily.once("value", snapshot => {
+        snapshot.forEach(data => {
+
+          day[j][2]=data.val()["average"];
+          console.log("daily average: "+ day[j][2]);
+
+          j++;
+        });
+
+        return 0;
+
+      });
+
+      // recalculate average
+      var avg = new Array(24);
+      var dcount = new Array(24);
+      for (var j = 0; j < day[i].length; j++){
+        avg[j] = day[j][0]+day[j][2];
+        dcount[j] = day[j][1]+1;
+        avg[j] = avg[j]/dcount[j];
+      }
+
+      return 0;
+
+    });
+
+  
+
+    /*// set new total averages and number of days for each hour
+    const w = admin.database.ref("WeeklyHourlyAverages");
+    //String weekday = '"' + day_of_week +'"'
+    var td = ref.child(weekday.toString())
+    td.set({
+      "0":{
+        "average": avg[0].toString(),
+        "days": dcount[0].toString()
+      },
+      "1":{
+        "average": "",
+        "days": ""
+      },
+      "2":{
+        "average": "",
+        "days": ""
+      },
+      "3":{
+        "average": "",
+        "days": ""
+      },
+      "4":{
+        "average": "",
+        "days": ""
+      }
+
+
+    });*/
+
+  }); 
+
+
+
