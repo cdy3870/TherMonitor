@@ -80,6 +80,11 @@ exports.generate_daily_occupancy_averages = functions.pubsub.schedule("5 * * * *
 
     });
 
+    // temporary code to set a random room occupancy every hour
+    var random_occupancy = Math.floor(Math.random() * Math.floor(20));
+    ro.set({
+        "room1": random_occupancy
+    });
     return 0;
   
   });
