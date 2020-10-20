@@ -22,7 +22,7 @@
 FirebaseData firebaseData;
 
 /* Analog Pins */
-int analogPin1 = A2;
+int analogPin1 = A1;
 int analogPin2 = A3;
 
 /* Analog readings */
@@ -66,24 +66,32 @@ void setup() {
 }
 
 void loop() {
+  time1 = 0;
+  time2 = 0;
+  
   /* Reading from sensors */
   sensorVal1 = analogRead(analogPin1);
-  Serial.println(sensorVal1);
   sensorVal2 = analogRead(analogPin2);
-  Serial.println(sensorVal1);
 
   /* Distance calculation */
   distance1 = getDistance(sensorVal1);
   distance2 = getDistance(sensorVal2);
 
+  bool if_triggered_1;
+  bool if_triggered_2;
   /* Setting trigger times */
-  setTriggerTime(1, distance1);
-  setTriggerTime(2, distance2);
-//  if(setTriggerTime(1, distance1) && setTriggerTime(2, distance2)) checkSensor();
+  if_triggered_1 = setTriggerTime(1, distance1);
+  if_triggered_2 = setTriggerTime(2, distance2);
+  if(!if_triggered_1){
+    sensorVal1 = analogRead(analogPin1);
+    distance1 = getDistance(sensorVal1);
+    if_triggered_1 = setTriggerTime(1, distance1);
+  }
+  if(if_triggered_1 && if_triggered_2) checkSensor();
 }
 
 int getDistance(int sensorVal){
-  float volts = sensorVal1 * (voltage / max_analog_value);
+  float volts = sensorVal * (voltage / max_analog_value);
   // From Sharp.h library
   float distance = 29.988 * pow(volts, -1.173);
   Serial.print(distance);
@@ -92,20 +100,20 @@ int getDistance(int sensorVal){
 }
 
 bool setTriggerTime(int id, float distance){
-  if(distance < 70){
-    if(id = 1){
+  if(distance < 70 && distance > 0){
+    if(id == 1){
       time1 = millis();
-      Serial.print("First Sensor Time 1: ");
-      Serial.println(time1);
-      Serial.print("Time 2: ");
-      Serial.println(time2);
+//      Serial.print("First Sensor Time 1: ");
+//      Serial.println(time1);
+//      Serial.print("Time 2: ");
+//      Serial.println(time2);
     }
     else{
       time2 = millis();
-      Serial.print("Second Sensor Time 1: ");
-      Serial.println(time1);
-      Serial.print("Time 2: ");
-      Serial.println(time2);
+//      Serial.print("Second Sensor Time 1: ");
+//      Serial.println(time1);
+//      Serial.print("Time 2: ");
+//      Serial.println(time2);
     }
     return true;
   }
@@ -113,12 +121,24 @@ bool setTriggerTime(int id, float distance){
 }
 
 int checkSensor() {
-  if (time1 > time2) uploadToFirebase("Entry");
-  else uploadToFirebase("Exit");
-
-  //    while(sensorVal > 210){
-  //      sensorVal = analogRead(analogPin);
-  //    }
+  float distance1 = 69;
+  float distance2 = 69;
+  if (time1 < time2){
+    Serial.println("Entry");
+//    uploadToFirebase("Entry");
+    while(distance1 < 70 || distance2 < 70){
+      distance1 = getDistance(analogRead(analogPin1));
+      distance2 = getDistance(analogRead(analogPin2));
+    }
+  }
+  else{
+    Serial.println("Exit");
+//    uploadToFirebase("Exit");
+    while(distance1 < 70 || distance2 < 70){
+      distance1 = getDistance(analogRead(analogPin1));
+      distance2 = getDistance(analogRead(analogPin2));
+    }
+  }
 }
 
 void uploadToFirebase(String dir) {
@@ -127,7 +147,7 @@ void uploadToFirebase(String dir) {
   String count2 = String(count);
   count += 1;
   String jsonData = "{\"Timestamp\":\"231321546\", \"Direction\":\"" + dir + "\", \"Count\":\"" + count2 + "\"}";
-  if (Firebase.setJSON(firebaseData, path, jsonData)) { // set sensorVal1ue in Firebase
+  if (Firebase.setJSON(firebaseData, path, jsonData)) { // set sensorVa1ue in Firebase
     Serial.println("data successfully pushed to Firebase");
   }
   else {
