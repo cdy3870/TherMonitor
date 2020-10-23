@@ -26,7 +26,11 @@ class FirstViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         ref = Database.database().reference()
-
+        /*databaseHandle = ref?.child("RoomOccupancy").child("room1").observe(.value, with: { (snapshot) in
+            let values = snapshot.value as? String
+            
+            self.currentRoomCap.text = values
+        })*/
         databaseHandle = ref?.child("Events").observe(.childAdded, with: { (snapshot) in
 
             let values = snapshot.value as? NSDictionary
@@ -41,6 +45,7 @@ class FirstViewController: UIViewController {
             // we are going to need to refresh
 
             self.currentRoomCap.text = String(self.total_room_occupancy)
+            //self.currentRoomCap.text = values
 
         })
 
