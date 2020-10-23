@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import FirebaseDatabase
 
 class ThirdViewController: UIViewController {
     
@@ -21,9 +22,13 @@ class ThirdViewController: UIViewController {
     @IBOutlet weak var fri: UIButton!
     @IBOutlet weak var sat: UIButton!
     
-    var set = BarChartDataSet()
-    //var hours = ["","8am","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"]
     
+    var databaseHandle: DatabaseHandle?
+    var ref: DatabaseReference?
+    
+    var set = BarChartDataSet()
+    var hours = ["","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"]
+    var dbHours: Array<Double> = Array(repeating: 0, count: 24)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,21 +43,6 @@ class ThirdViewController: UIViewController {
             calendar.timeZone = timeZone
         }
         
-        let hour = calendar.component(.hour, from: currentTime)
-        let minute = calendar.component(.minute, from: currentTime)
-        
-        var curHour = 0
-        
-        if (minute < 30){
-            curHour = hour
-        }
-        else{
-            curHour = hour + 1
-        }
-        
-        let allHours = ["1am","2am","3am","4am","5am","6am","7am","8am","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm","12am"]
-        
-        let hours = Array(allHours[curHour-6...curHour+4])
 
         // Do any additional setup after loading the view.
         weekBarChart.rightAxis.enabled = false
@@ -81,124 +71,230 @@ class ThirdViewController: UIViewController {
     }
     
     @IBAction func sunday(_ sender: Any) {
-        set = BarChartDataSet(entries: [
-                BarChartDataEntry(x: Double(1),y: Double(5)),
-                BarChartDataEntry(x: Double(2),y: Double(4)),
-                BarChartDataEntry(x: Double(3),y: Double(2)),
-                BarChartDataEntry(x: Double(4),y: Double(1)),
-                BarChartDataEntry(x: Double(5),y: Double(7)),
-                BarChartDataEntry(x: Double(6),y: Double(2)),
-                BarChartDataEntry(x: Double(7),y: Double(7)),
-                BarChartDataEntry(x: Double(8),y: Double(3)),
-                BarChartDataEntry(x: Double(9),y: Double(9)),
-                BarChartDataEntry(x: Double(10),y: Double(4))
+    
+        let cDay = String(0)
+        // Database Stuff
+        ref = Database.database().reference()
+        databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: { [self](snapshot) in
+            var i = 0
+            for cDay in snapshot.children.allObjects as![DataSnapshot]{
+                //print("i: \(i)")
+                let hourObj = cDay.value as? [String: Any]
+                let hourAvg = hourObj?["average"]
+                self.dbHours[i] = hourAvg as! Double
+                //print("db hour \(self.dbHours[i])")
+                i+=1
+                
+                //print("Hour Object: \(hourObj)")
+                
+            }
             
-        ])
+            self.set = BarChartDataSet(entries: [
+                    BarChartDataEntry(x: Double(1),y: self.dbHours[9]),
+                    BarChartDataEntry(x: Double(2),y: self.dbHours[10]),
+                    BarChartDataEntry(x: Double(3),y: self.dbHours[11]),
+                    BarChartDataEntry(x: Double(4),y: self.dbHours[12]),
+                    BarChartDataEntry(x: Double(5),y: self.dbHours[13]),
+                    BarChartDataEntry(x: Double(6),y: self.dbHours[14]),
+                    BarChartDataEntry(x: Double(7),y: self.dbHours[15]),
+                    BarChartDataEntry(x: Double(8),y: self.dbHours[16]),
+                    BarChartDataEntry(x: Double(9),y: self.dbHours[17]),
+                    BarChartDataEntry(x: Double(10),y: self.dbHours[18])
+              ], label: "Hour")
         
-        makeBarChart(day: sun)
+            self.makeBarChart(day: sun)
+        })
         
     }
     
     @IBAction func monday(_ sender: Any) {
-        set = BarChartDataSet(entries: [
-                BarChartDataEntry(x: Double(1),y: Double(2)),
-                BarChartDataEntry(x: Double(2),y: Double(7)),
-                BarChartDataEntry(x: Double(3),y: Double(3)),
-                BarChartDataEntry(x: Double(4),y: Double(8)),
-                BarChartDataEntry(x: Double(5),y: Double(2)),
-                BarChartDataEntry(x: Double(6),y: Double(9)),
-                BarChartDataEntry(x: Double(7),y: Double(8)),
-                BarChartDataEntry(x: Double(8),y: Double(1)),
-                BarChartDataEntry(x: Double(9),y: Double(2)),
-                BarChartDataEntry(x: Double(10),y: Double(8))
-        ])
-
-        makeBarChart(day: mon)
+        let cDay = String(1)
+        // Database Stuff
+        ref = Database.database().reference()
+        databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: { [self](snapshot) in
+            var i = 0
+            for cDay in snapshot.children.allObjects as![DataSnapshot]{
+                //print("i: \(i)")
+                let hourObj = cDay.value as? [String: Any]
+                let hourAvg = hourObj?["average"]
+                self.dbHours[i] = hourAvg as! Double
+                //print("db hour \(self.dbHours[i])")
+                i+=1
+                
+                //print("Hour Object: \(hourObj)")
+                
+            }
+            
+            self.set = BarChartDataSet(entries: [
+                BarChartDataEntry(x: Double(1),y: self.dbHours[9]),
+                BarChartDataEntry(x: Double(2),y: self.dbHours[10]),
+                BarChartDataEntry(x: Double(3),y: self.dbHours[11]),
+                BarChartDataEntry(x: Double(4),y: self.dbHours[12]),
+                BarChartDataEntry(x: Double(5),y: self.dbHours[13]),
+                BarChartDataEntry(x: Double(6),y: self.dbHours[14]),
+                BarChartDataEntry(x: Double(7),y: self.dbHours[15]),
+                BarChartDataEntry(x: Double(8),y: self.dbHours[16]),
+                BarChartDataEntry(x: Double(9),y: self.dbHours[17]),
+                BarChartDataEntry(x: Double(10),y: self.dbHours[18])
+              ], label: "Hour")
+        
+            self.makeBarChart(day: mon)
+        })
     }
     
     @IBAction func tuesday(_ sender: Any) {
-        set = BarChartDataSet(entries: [
-                BarChartDataEntry(x: Double(1),y: Double(2)),
-                BarChartDataEntry(x: Double(2),y: Double(5)),
-                BarChartDataEntry(x: Double(3),y: Double(3)),
-                BarChartDataEntry(x: Double(4),y: Double(4)),
-                BarChartDataEntry(x: Double(5),y: Double(1)),
-                BarChartDataEntry(x: Double(6),y: Double(3)),
-                BarChartDataEntry(x: Double(7),y: Double(8)),
-                BarChartDataEntry(x: Double(8),y: Double(3)),
-                BarChartDataEntry(x: Double(9),y: Double(3)),
-                BarChartDataEntry(x: Double(10),y: Double(9))
-        ])
+        let cDay = String(2)
+        // Database Stuff
+        ref = Database.database().reference()
+        databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: { [self](snapshot) in
+            var i = 0
+            for cDay in snapshot.children.allObjects as![DataSnapshot]{
+                let hourObj = cDay.value as? [String: Any]
+                let hourAvg = hourObj?["average"]
+                self.dbHours[i] = hourAvg as! Double
+                i+=1
+            
+            }
+            
+            self.set = BarChartDataSet(entries: [
+                BarChartDataEntry(x: Double(1),y: self.dbHours[9]),
+                BarChartDataEntry(x: Double(2),y: self.dbHours[10]),
+                BarChartDataEntry(x: Double(3),y: self.dbHours[11]),
+                BarChartDataEntry(x: Double(4),y: self.dbHours[12]),
+                BarChartDataEntry(x: Double(5),y: self.dbHours[13]),
+                BarChartDataEntry(x: Double(6),y: self.dbHours[14]),
+                BarChartDataEntry(x: Double(7),y: self.dbHours[15]),
+                BarChartDataEntry(x: Double(8),y: self.dbHours[16]),
+                BarChartDataEntry(x: Double(9),y: self.dbHours[17]),
+                BarChartDataEntry(x: Double(10),y: self.dbHours[18])
+              ], label: "Hour")
         
-        makeBarChart(day: tues)
+            self.makeBarChart(day: tues)
+        })
     }
     
     @IBAction func wednesday(_ sender: Any) {
-        set = BarChartDataSet(entries: [
-                BarChartDataEntry(x: Double(1),y: Double(7)),
-                BarChartDataEntry(x: Double(2),y: Double(7)),
-                BarChartDataEntry(x: Double(3),y: Double(8)),
-                BarChartDataEntry(x: Double(4),y: Double(3)),
-                BarChartDataEntry(x: Double(5),y: Double(5)),
-                BarChartDataEntry(x: Double(6),y: Double(2)),
-                BarChartDataEntry(x: Double(7),y: Double(4)),
-                BarChartDataEntry(x: Double(8),y: Double(8)),
-                BarChartDataEntry(x: Double(9),y: Double(1)),
-                BarChartDataEntry(x: Double(10),y: Double(2))
-        ])
-
-        makeBarChart(day: wed)
+        let cDay = String(3)
+        // Database Stuff
+        ref = Database.database().reference()
+        databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: { [self](snapshot) in
+            var i = 0
+            for cDay in snapshot.children.allObjects as![DataSnapshot]{
+                let hourObj = cDay.value as? [String: Any]
+                let hourAvg = hourObj?["average"]
+                self.dbHours[i] = hourAvg as! Double
+                i+=1
+            
+            }
+            
+            self.set = BarChartDataSet(entries: [
+                BarChartDataEntry(x: Double(1),y: self.dbHours[9]),
+                BarChartDataEntry(x: Double(2),y: self.dbHours[10]),
+                BarChartDataEntry(x: Double(3),y: self.dbHours[11]),
+                BarChartDataEntry(x: Double(4),y: self.dbHours[12]),
+                BarChartDataEntry(x: Double(5),y: self.dbHours[13]),
+                BarChartDataEntry(x: Double(6),y: self.dbHours[14]),
+                BarChartDataEntry(x: Double(7),y: self.dbHours[15]),
+                BarChartDataEntry(x: Double(8),y: self.dbHours[16]),
+                BarChartDataEntry(x: Double(9),y: self.dbHours[17]),
+                BarChartDataEntry(x: Double(10),y: self.dbHours[18])
+              ], label: "Hour")
+        
+            self.makeBarChart(day: wed)
+        })
     }
     
     @IBAction func thursday(_ sender: Any) {
-        set = BarChartDataSet(entries: [
-                BarChartDataEntry(x: Double(1),y: Double(2)),
-                BarChartDataEntry(x: Double(2),y: Double(7)),
-                BarChartDataEntry(x: Double(3),y: Double(4)),
-                BarChartDataEntry(x: Double(4),y: Double(1)),
-                BarChartDataEntry(x: Double(5),y: Double(7)),
-                BarChartDataEntry(x: Double(6),y: Double(9)),
-                BarChartDataEntry(x: Double(7),y: Double(8)),
-                BarChartDataEntry(x: Double(8),y: Double(6)),
-                BarChartDataEntry(x: Double(9),y: Double(2)),
-                BarChartDataEntry(x: Double(10),y: Double(2))
-        ])
-
-        makeBarChart(day: thurs)
+        let cDay = String(4)
+        // Database Stuff
+        ref = Database.database().reference()
+        databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: { [self](snapshot) in
+            var i = 0
+            for cDay in snapshot.children.allObjects as![DataSnapshot]{
+                let hourObj = cDay.value as? [String: Any]
+                let hourAvg = hourObj?["average"]
+                self.dbHours[i] = hourAvg as! Double
+                i+=1
+            
+            }
+            
+            self.set = BarChartDataSet(entries: [
+                BarChartDataEntry(x: Double(1),y: self.dbHours[9]),
+                BarChartDataEntry(x: Double(2),y: self.dbHours[10]),
+                BarChartDataEntry(x: Double(3),y: self.dbHours[11]),
+                BarChartDataEntry(x: Double(4),y: self.dbHours[12]),
+                BarChartDataEntry(x: Double(5),y: self.dbHours[13]),
+                BarChartDataEntry(x: Double(6),y: self.dbHours[14]),
+                BarChartDataEntry(x: Double(7),y: self.dbHours[15]),
+                BarChartDataEntry(x: Double(8),y: self.dbHours[16]),
+                BarChartDataEntry(x: Double(9),y: self.dbHours[17]),
+                BarChartDataEntry(x: Double(10),y: self.dbHours[18])
+              ], label: "Hour")
+        
+            self.makeBarChart(day: thurs)
+        })
     }
     
     @IBAction func friday(_ sender: Any) {
-        set = BarChartDataSet(entries: [
-                BarChartDataEntry(x: Double(1),y: Double(9)),
-                BarChartDataEntry(x: Double(2),y: Double(7)),
-                BarChartDataEntry(x: Double(3),y: Double(6)),
-                BarChartDataEntry(x: Double(4),y: Double(8)),
-                BarChartDataEntry(x: Double(5),y: Double(2)),
-                BarChartDataEntry(x: Double(6),y: Double(4)),
-                BarChartDataEntry(x: Double(7),y: Double(8)),
-                BarChartDataEntry(x: Double(8),y: Double(1)),
-                BarChartDataEntry(x: Double(9),y: Double(8)),
-                BarChartDataEntry(x: Double(10),y: Double(2))
-        ])
+        let cDay = String(5)
+        // Database Stuff
+        ref = Database.database().reference()
+        databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: { [self](snapshot) in
+            var i = 0
+            for cDay in snapshot.children.allObjects as![DataSnapshot]{
+                let hourObj = cDay.value as? [String: Any]
+                let hourAvg = hourObj?["average"]
+                self.dbHours[i] = hourAvg as! Double
+                i+=1
+            
+            }
+            
+            self.set = BarChartDataSet(entries: [
+                BarChartDataEntry(x: Double(1),y: self.dbHours[9]),
+                BarChartDataEntry(x: Double(2),y: self.dbHours[10]),
+                BarChartDataEntry(x: Double(3),y: self.dbHours[11]),
+                BarChartDataEntry(x: Double(4),y: self.dbHours[12]),
+                BarChartDataEntry(x: Double(5),y: self.dbHours[13]),
+                BarChartDataEntry(x: Double(6),y: self.dbHours[14]),
+                BarChartDataEntry(x: Double(7),y: self.dbHours[15]),
+                BarChartDataEntry(x: Double(8),y: self.dbHours[16]),
+                BarChartDataEntry(x: Double(9),y: self.dbHours[17]),
+                BarChartDataEntry(x: Double(10),y: self.dbHours[18])
+              ], label: "Hour")
         
-        makeBarChart(day: fri)
+            self.makeBarChart(day: fri)
+        })
     }
     
     @IBAction func saturday(_ sender: Any) {
-        set = BarChartDataSet(entries: [
-                BarChartDataEntry(x: Double(1),y: Double(4)),
-                BarChartDataEntry(x: Double(2),y: Double(1)),
-                BarChartDataEntry(x: Double(3),y: Double(2)),
-                BarChartDataEntry(x: Double(4),y: Double(9)),
-                BarChartDataEntry(x: Double(5),y: Double(7)),
-                BarChartDataEntry(x: Double(6),y: Double(5)),
-                BarChartDataEntry(x: Double(7),y: Double(8)),
-                BarChartDataEntry(x: Double(8),y: Double(3)),
-                BarChartDataEntry(x: Double(9),y: Double(4)),
-                BarChartDataEntry(x: Double(10),y: Double(2))
-        ])
+        let cDay = String(6)
+        // Database Stuff
+        ref = Database.database().reference()
+        databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: { [self](snapshot) in
+            var i = 0
+            for cDay in snapshot.children.allObjects as![DataSnapshot]{
+                let hourObj = cDay.value as? [String: Any]
+                let hourAvg = hourObj?["average"]
+                self.dbHours[i] = hourAvg as! Double
+                i+=1
+            
+            }
+            
+            self.set = BarChartDataSet(entries: [
+                BarChartDataEntry(x: Double(1),y: self.dbHours[9]),
+                BarChartDataEntry(x: Double(2),y: self.dbHours[10]),
+                BarChartDataEntry(x: Double(3),y: self.dbHours[11]),
+                BarChartDataEntry(x: Double(4),y: self.dbHours[12]),
+                BarChartDataEntry(x: Double(5),y: self.dbHours[13]),
+                BarChartDataEntry(x: Double(6),y: self.dbHours[14]),
+                BarChartDataEntry(x: Double(7),y: self.dbHours[15]),
+                BarChartDataEntry(x: Double(8),y: self.dbHours[16]),
+                BarChartDataEntry(x: Double(9),y: self.dbHours[17]),
+                BarChartDataEntry(x: Double(10),y: self.dbHours[18])
+              ], label: "Hour")
         
-        makeBarChart(day: sat)
+            self.makeBarChart(day: sat)
+        })
     }
     
 }

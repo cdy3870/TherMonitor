@@ -12,7 +12,15 @@ import FirebaseDatabase
 
 class SecondViewController: UIViewController {
     
-
+    /*class graphData{
+        var cHr: String?
+        var cAvg: Double?
+        
+        init(cHr:String?, cAvg:Double?){
+            self.cHr = cHr;
+            self.cAvg = cAvg;
+        }
+    }*/
 
     @IBOutlet weak var barChart: BarChartView!
     @IBOutlet weak var curDay: UILabel!
