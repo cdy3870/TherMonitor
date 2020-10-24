@@ -114,28 +114,42 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpE-EW-mny" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="171.5" width="335" height="419.5"/>
+                                <rect key="frame" x="18" y="171.5" width="339" height="390.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="28z-S3-QJG">
+                                <rect key="frame" x="65" y="572" width="245" height="32"/>
+                                <segments>
+                                    <segment title="Morning"/>
+                                    <segment title="Afternoon"/>
+                                    <segment title="Evening"/>
+                                </segments>
+                                <connections>
+                                    <action selector="switchSel:" destination="8rJ-Kc-sve" eventType="valueChanged" id="aSl-A2-OXl"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="28z-S3-QJG" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="0nn-nN-6gL"/>
                             <constraint firstItem="aZV-7I-cLD" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="4qd-AB-8qh"/>
-                            <constraint firstItem="fpE-EW-mny" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="6B8-J1-dSK"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="28z-S3-QJG" secondAttribute="bottom" constant="15" id="7ar-tY-orv"/>
                             <constraint firstItem="fpE-EW-mny" firstAttribute="top" secondItem="aZV-7I-cLD" secondAttribute="bottom" constant="30" id="7xm-dT-sBg"/>
-                            <constraint firstItem="fpE-EW-mny" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="20" id="OAe-k1-udZ"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="fpE-EW-mny" secondAttribute="bottom" constant="27" id="PFI-xW-IR5"/>
+                            <constraint firstItem="fpE-EW-mny" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="VTf-6b-qhp"/>
                             <constraint firstItem="YEY-qP-bpp" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="30" id="ZOa-wF-L3H"/>
                             <constraint firstItem="YEY-qP-bpp" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="aJd-qh-HTr"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="fpE-EW-mny" secondAttribute="trailing" constant="20" id="eTc-DJ-ViZ"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="fpE-EW-mny" secondAttribute="trailing" constant="18" id="cuB-wq-Ckg"/>
                             <constraint firstItem="aZV-7I-cLD" firstAttribute="top" secondItem="YEY-qP-bpp" secondAttribute="bottom" constant="30" id="mcQ-vS-PbD"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="fpE-EW-mny" secondAttribute="bottom" constant="56" id="qE4-2M-6b9"/>
+                            <constraint firstItem="fpE-EW-mny" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="18" id="t3M-Vj-lYp"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Daily" image="first" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="barChart" destination="fpE-EW-mny" id="0Ri-ar-cMx"/>
                         <outlet property="curDay" destination="zEq-FU-wV5" id="Tlq-mz-zS6"/>
+                        <outlet property="timingSelection" destination="28z-S3-QJG" id="J7m-nx-lsD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
