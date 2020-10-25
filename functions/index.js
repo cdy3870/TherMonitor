@@ -94,8 +94,14 @@ exports.generate_weekly_occupancy_averages = functions.pubsub.schedule("45 23 * 
 
     // figure out current day of the week
     var today = new Date();
-    var day_of_week = today.getDay()-1; //0 = Sun, 1 = Mon, etc
+    var day_of_week = today.getDay(); //0 = Sun, 1 = Mon, etc
 
+    if (day_of_week === 0) {
+      day_of_week = 6;
+    }
+    else{
+      day_of_week = day_of_week-1;
+    }
     // set up array to temp store averages
     // create 7 days
     var day = new Array(24);
