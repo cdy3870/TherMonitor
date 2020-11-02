@@ -156,7 +156,7 @@ exports.generate_weekly_occupancy_averages = functions.pubsub.schedule("45 23 * 
         var avg = new Array(24);
         var dcount = new Array(24);
         for (var i = 0;  i < day.length; i++){
-          avg[i] = day[i][0]+day[i][2];
+          avg[i] = day[i][0]*day[i][1]+day[i][2];
           dcount[i] = day[i][1]+1;
           avg[i] = avg[i]/dcount[i];
           console.log("i: " +i+ " new average: "+ avg[i] + " new days: "+ dcount[i]);

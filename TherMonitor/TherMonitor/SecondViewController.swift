@@ -105,7 +105,7 @@ class SecondViewController: UIViewController {
             curHour = hour + 1
         }
         
-        //let allHours = ["1am","2am","3am","4am","5am","6am","7am","8am","9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm","12am"]
+
         let hours = ["","10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"]
 
         //let intHours = [curHour-6...curHour+4]
@@ -116,12 +116,11 @@ class SecondViewController: UIViewController {
         ref = Database.database().reference()
         databaseHandle = ref?.child("WeeklyHourlyAverages").child(cDay).observe(.value, with: {(snapshot) in
             var i = 0
-            for cDay in snapshot.children.allObjects as![DataSnapshot]{
-                let hourObj = cDay.value as? [String: Any]
+            for c in snapshot.children.allObjects as![DataSnapshot]{
+                let hourObj = c.value as? [String: Any]
                 let hourAvg = hourObj?["average"]
                 self.dbHours[i] = hourAvg as! Double
                 i+=1
-                
             }
             
             self.set = BarChartDataSet(entries: [

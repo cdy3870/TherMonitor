@@ -26,12 +26,47 @@ class FirstViewController: UIViewController {
         // Do any additional setup after loading the view.
 
         ref = Database.database().reference()
-        /*databaseHandle = ref?.child("RoomOccupancy").child("room1").observe(.value, with: { (snapshot) in
-            let values = snapshot.value as? String
+        
+        databaseHandle = ref?.child("Rooms").observe(.value, with: {(snapshot) in
+            var roomArr: Array<Double> = Array(repeating: 0, count: 10)
+            var i = 0
+            for r in snapshot.children.allObjects as![DataSnapshot]{
+                let roomObj = r.value as? [String: Any]
+                let roomOcc = roomObj?["currentOccupancy"]
+                roomArr[i] = roomOcc as! Double
+                i+=1
+            }
+            self.currentRoomCap.text = String(format: "%g", roomArr[0])
             
-            self.currentRoomCap.text = values
+        })
+        
+        /*databaseHandle = ref?.child("Rooms").observe(.value, with: { (snapshot) in
+            
+            for r in snapshot.children.allObjects as![DataSnapshot]{
+                let rD = r.value as? [String: Any]
+                let val = rD?["currentOccupancy"]
+                self.currentRoomCap.text = val as! String
+            }
+            
+            
+            //let r = snapshot.value as![DataSnapshot]
+            //let rD = snapshot.value as? [String: Any]
+            
+            //let values = rD?["currentOccupancy"]
+            
+            
+            
+            
+            
+            
+            
+            /*for r in snapshot.children. as![DataSnapshot]{
+                let rNum = r.value as? [String
+                self.currentRoomCap.text = rNum
+            }*/
+            
         })*/
-        databaseHandle = ref?.child("Events").observe(.childAdded, with: { (snapshot) in
+        /*databaseHandle = ref?.child("Events").observe(.childAdded, with: { (snapshot) in
 
             let values = snapshot.value as? NSDictionary
             // i think what we want to do is something like
@@ -47,7 +82,7 @@ class FirstViewController: UIViewController {
             self.currentRoomCap.text = String(self.total_room_occupancy)
             //self.currentRoomCap.text = values
 
-        })
+        })*/
 
 
      }
