@@ -49,20 +49,41 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ldI-qk-MvK">
+                                <rect key="frame" x="30" y="553" width="154" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max Capacity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXm-Z3-Rc1">
+                                        <rect key="frame" x="0.0" y="0.0" width="133.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lX-wO-orU">
+                                        <rect key="frame" x="143.5" y="0.0" width="10.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ldI-qk-MvK" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="30" id="Ctt-ci-dhi"/>
                             <constraint firstItem="PYN-Fo-QCz" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="30" id="J8p-8Q-fbc"/>
                             <constraint firstItem="PYN-Fo-QCz" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="Xi6-65-Uqp"/>
                             <constraint firstItem="MSF-bH-itR" firstAttribute="top" secondItem="PYN-Fo-QCz" secondAttribute="bottom" constant="120" id="aWF-jw-67z"/>
                             <constraint firstItem="MSF-bH-itR" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="pt0-yJ-6Uc"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="ldI-qk-MvK" secondAttribute="bottom" constant="45" id="ud5-sL-wF7"/>
                             <constraint firstItem="MSF-bH-itR" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="uyd-va-MOl"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Overview" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="currentRoomCap" destination="KQZ-1w-vlD" id="bWv-oj-3ee"/>
+                        <outlet property="maxRoomCap" destination="2lX-wO-orU" id="GFU-2t-CGx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -332,6 +353,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
