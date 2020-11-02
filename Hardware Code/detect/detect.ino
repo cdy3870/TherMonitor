@@ -1,4 +1,3 @@
-
 #include <Firebase_Arduino_WiFiNINA.h>
 #include <Firebase_Arduino_WiFiNINA_HTTPClient.h>
 #include <WiFiNINA.h>
@@ -47,10 +46,8 @@ bool if_triggered_2 = false;
   
 int count = 1;
 
-//int s0 = 0;
-//int s1 = 0;
-//int s2 = 0;
-//int 
+int[] states = {0, 1, 2, 3};
+int current_state = states[0];
 void setup() {
   /* Serial Connection */
   Serial.begin(9600);
@@ -97,6 +94,39 @@ void loop() {
     distance1 = getDistance(sensorVal1);
     if_triggered_1 = setTriggerTime(1, distance1);
   }
+
+  if(current_state == 4) checkSensor();
+  
+  switch(current_state){
+    case 0:
+      if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[1];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[0];
+      break;
+    case 1:
+      if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[2];
+      break;
+    case 2:
+      if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[3];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[0];
+      break; 
+    case 3:
+      if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[0];
+      break;     
+  }
+
+  
+
+  
 //   if(if_triggered_1 && if_triggered_2) checkSensor();
 //   else if(if_triggered_1 && !if_triggered_2){
 //     time1 = 0;
