@@ -46,7 +46,7 @@ bool if_triggered_2 = false;
   
 int count = 1;
 
-int[] states = {0, 1, 2, 3};
+int states[] = {0, 1, 2, 3, 4, 5};
 int current_state = states[0];
 void setup() {
   /* Serial Connection */
@@ -95,33 +95,50 @@ void loop() {
     if_triggered_1 = setTriggerTime(1, distance1);
   }
 
-  if(current_state == 4) checkSensor();
+  if(current_state == 4) checkSensor(0);
+  else if(current_state == 5) checkSensor(1);
   
   switch(current_state){
-    case 0:
+    // Exit
+    case 0: // No trigger
       if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
       else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[1];
-      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[4];
       else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[0];
       break;
-    case 1:
+    case 1: // First sensor triggered first
       if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
       else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
       else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
       else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[2];
       break;
-    case 2:
+    case 2: // Both sensors triggered
       if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
-      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
+      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[5];
       else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[3];
       else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[0];
       break; 
-    case 3:
+    case 3: // Second sensor triggered second
       if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
       else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
       else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
       else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[0];
-      break;     
+      break;  
+
+    // Entry
+    case 4: // Second sensor triggered first
+      if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[2];
+      break;   
+      
+    case 5: // First sensor triggered second
+      if(if_triggered_1 == 0 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 0 && if_triggered_2 == 1) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 0) current_state = states[0];
+      else if(if_triggered_1 == 1 && if_triggered_2 == 1) current_state = states[0];
+      break; 
   }
 
   
@@ -175,25 +192,28 @@ bool setTriggerTime(int id, float distance){
   return false;
 }
 
-int checkSensor() {
+int checkSensor(int sensor_id) {
 //  float distance1 = 49;
 //  float distance2 = 49;
-  if (time1 < time2){
+//  if (time1 < time2){
 //    Serial.println("Entry");
-    uploadToFirebase("Entry");
+//    uploadToFirebase("Entry");
 //    while(distance1 < 70 || distance2 < 70){
 //      distance1 = getDistance(analogRead(analogPin1));
 //      distance2 = getDistance(analogRead(analogPin2));
 //    }
-  }
-  else{
+//  }
+//  else{
 //    Serial.println("Exit");
-    uploadToFirebase("Exit");
+//    uploadToFirebase("Exit");
 //      while(distance1 < 70 || distance2 < 70){
 //        distance1 = getDistance(analogRead(analogPin1));
 //        distance2 = getDistance(analogRead(analogPin2));
 //      }
-  }
+//  }
+
+  if(sensor_id == 0) Serial.println("Exit");
+  else Serial.println("Entry");
 }
 
 void uploadToFirebase(String dir) {
