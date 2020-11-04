@@ -54,8 +54,8 @@ bool if_triggered_2 = false;
 
 int count = 1;
 
-int[] states = {0, 1, 2, 3};
-int current_state = states[0];
+// int[] states = {0, 1, 2, 3};
+int current_state = STATE_INIT;
 void setup() {
   /* Serial Connection */
   Serial.begin(9600);
@@ -97,13 +97,13 @@ void loop() {
   if_triggered_1 = setTriggerTime(1, distance1);
   if_triggered_2 = setTriggerTime(2, distance2);
   //if(!if_triggered_1)if_triggered_1 = setTriggerTime(1, distance1);
-  // if(!if_triggered_1){
-  //   sensorVal1 = analogRead(analogPin1);
-  //   distance1 = getDistance(sensorVal1);
-  //   if_triggered_1 = setTriggerTime(1, distance1);
-  // }
+   if(!if_triggered_1){
+     sensorVal1 = analogRead(analogPin1);
+     distance1 = getDistance(sensorVal1);
+     if_triggered_1 = setTriggerTime(1, distance1);
+   }
 
-  //if(current_state == 4) checkSensor();
+  //if(current_state == STATE_ENTRY_3) checkSensor();
 
   switch(current_state){
     // 0,0
@@ -131,7 +131,7 @@ void loop() {
       break;
     // 0,1
     case STATE_EXIT_1:
-      Serial.println("EXIT SEQUENCE BEGINNING ... REAR SENSOR TRIGGERED");
+      //Serial.println("EXIT SEQUENCE BEGINNING ... REAR SENSOR TRIGGERED");
       // goes back to init state, not a full sequence
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
@@ -160,6 +160,8 @@ void loop() {
       // maybe this should be an exit?  maybe go to state 3
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
+        checkSensor(1);
+        Serial.println("hit 00 after 11 exit");
         current_state = STATE_INIT;
       }
       else if(if_triggered_1 == 0 && if_triggered_2 == 1)
@@ -182,6 +184,7 @@ void loop() {
       // there has been a complete exit, upload to the database
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
+        checkSensor(1);
         Serial.println("EXIT SEQUENCE COMPLETE .... UPLOADING TO DATABASE");
         // upload exit to database
         current_state = STATE_INIT;
@@ -196,17 +199,18 @@ void loop() {
       else if(if_triggered_1 == 1 && if_triggered_2 == 0)
       {
         current_state = STATE_EXIT_3;
+        break;
       }
       // this shouldnt happen hopefully
       else if(if_triggered_1 == 1 && if_triggered_2 == 1)
       {
         current_state = STATE_INIT;
       }
-      Serial.println("ENTRY SEQUENCE DID NOT COMPLETE");
+      Serial.println("EXIT SEQUENCE DID NOT COMPLETE");
       break;
     // 1,0
     case STATE_ENTRY_1:
-      Serial.println("ENTRY SEQUENCE BEGINNING ... FRONT SENSOR TRIGGERED");
+      //Serial.println("ENTRY SEQUENCE BEGINNING ... FRONT SENSOR TRIGGERED");
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
         current_state = STATE_INIT;
@@ -232,15 +236,17 @@ void loop() {
       {
         // might need to add database entry upload code here
         // current_state = STATE_ENTRY_3
+        Serial.println("Went from entry 11 to 00");
+        checkSensor(0);
         current_state = STATE_INIT;
       }
       else if(if_triggered_1 == 0 && if_triggered_2 == 1)
       {
-        current_state = STATE_INIT;
+        current_state = STATE_ENTRY_3;
       }
       else if(if_triggered_1 == 1 && if_triggered_2 == 0)
       {
-        current_state = STATE_ENTRY_3;
+        current_state = STATE_INIT;
       }
       else if(if_triggered_1 == 1 && if_triggered_2 == 1)
       {
@@ -252,7 +258,8 @@ void loop() {
       Serial.println("ENTRY SEQUENCE END ... REAR SENSOR TRIGGERED");
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
-        Serial.println("EXIT SEQUENCE COMPLETE .... UPLOADING TO DATABASE");
+        checkSensor(0);
+        Serial.println("ENTRY SEQUENCE COMPLETE .... UPLOADING TO DATABASE");
         // send an entry to the database
         current_state = STATE_INIT;
         break;
@@ -289,17 +296,17 @@ void loop() {
 //   }
    if_triggered_1 = false;
    if_triggered_2 = false;
-  delay(200);
- Serial.println();
+  //delay(200);
+// Serial.println();
 }
 
 int getDistance(int sensorVal){
   float volts = sensorVal * (voltage / max_analog_value);
   // From Sharp.h library
   float distance = 29.988 * pow(volts, -1.173);
-  Serial.print(distance);
-  Serial.println(" cm");
-  Serial.println();
+//  Serial.print(distance);
+//  Serial.println(" cm");
+//  Serial.println();
   return distance;
 }
 
@@ -307,7 +314,7 @@ bool setTriggerTime(int id, float distance){
   if(distance < 50 && distance > 0){
     if(id == 1){
       time1 = millis();
-      Serial.println("reached 1 first");
+    //  Serial.println("reached 1 first");
 //      Serial.print("First Sensor Time 1: ");
 //      Serial.println(time1);
 //      Serial.print("Time 2: ");
@@ -315,7 +322,7 @@ bool setTriggerTime(int id, float distance){
     }
     else{
       time2 = millis();
-      Serial.println("reached 2 first");
+   //   Serial.println("reached 2 first");
 //      Serial.print("Second Sensor Time 1: ");
 //      Serial.println(time1);
 //      Serial.print("Time 2: ");
@@ -326,25 +333,27 @@ bool setTriggerTime(int id, float distance){
   return false;
 }
 
-int checkSensor() {
+int checkSensor(int sensor_id) {
 //  float distance1 = 49;
 //  float distance2 = 49;
-  if (time1 < time2){
-//    Serial.println("Entry");
-    uploadToFirebase("Entry");
-//    while(distance1 < 70 || distance2 < 70){
-//      distance1 = getDistance(analogRead(analogPin1));
-//      distance2 = getDistance(analogRead(analogPin2));
-//    }
-  }
-  else{
-//    Serial.println("Exit");
-    uploadToFirebase("Exit");
-//      while(distance1 < 70 || distance2 < 70){
-//        distance1 = getDistance(analogRead(analogPin1));
-//        distance2 = getDistance(analogRead(analogPin2));
-//      }
-  }
+//  if (time1 < time2){
+////    Serial.println("Entry");
+//    uploadToFirebase("Entry");
+////    while(distance1 < 70 || distance2 < 70){
+////      distance1 = getDistance(analogRead(analogPin1));
+////      distance2 = getDistance(analogRead(analogPin2));
+////    }
+//  }
+//  else{
+////    Serial.println("Exit");
+//    uploadToFirebase("Exit");
+////      while(distance1 < 70 || distance2 < 70){
+////        distance1 = getDistance(analogRead(analogPin1));
+////        distance2 = getDistance(analogRead(analogPin2));
+////      }
+//  }
+    if(sensor_id == 0) uploadToFirebase("Entry");
+    else uploadToFirebase("Exit");
 }
 
 void uploadToFirebase(String dir) {
