@@ -160,7 +160,7 @@ void loop() {
       // maybe this should be an exit?  maybe go to state 3
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
-        checkSensor(1);
+        uploadToFirebase("Exit");
         Serial.println("hit 00 after 11 exit");
         current_state = STATE_INIT;
       }
@@ -184,7 +184,7 @@ void loop() {
       // there has been a complete exit, upload to the database
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
-        checkSensor(1);
+        uploadToFirebase("Exit");
         Serial.println("EXIT SEQUENCE COMPLETE .... UPLOADING TO DATABASE");
         // upload exit to database
         current_state = STATE_INIT;
@@ -237,7 +237,7 @@ void loop() {
         // might need to add database entry upload code here
         // current_state = STATE_ENTRY_3
         Serial.println("Went from entry 11 to 00");
-        checkSensor(0);
+        uploadToFirebase("Entry");
         current_state = STATE_INIT;
       }
       else if(if_triggered_1 == 0 && if_triggered_2 == 1)
@@ -258,7 +258,7 @@ void loop() {
       Serial.println("ENTRY SEQUENCE END ... REAR SENSOR TRIGGERED");
       if(if_triggered_1 == 0 && if_triggered_2 == 0)
       {
-        checkSensor(0);
+        uploadToFirebase("Entry");
         Serial.println("ENTRY SEQUENCE COMPLETE .... UPLOADING TO DATABASE");
         // send an entry to the database
         current_state = STATE_INIT;
@@ -282,18 +282,6 @@ void loop() {
       break;
   }
 
-
-
-
-//   if(if_triggered_1 && if_triggered_2) checkSensor();
-//   else if(if_triggered_1 && !if_triggered_2){
-//     time1 = 0;
-//     time2 = 0;
-//   }
-//   else if(!if_triggered_1 && if_triggered_2){
-//     time1 = 0;
-//     time2 = 0;
-//   }
    if_triggered_1 = false;
    if_triggered_2 = false;
   //delay(200);
@@ -312,56 +300,19 @@ int getDistance(int sensorVal){
 
 bool setTriggerTime(int id, float distance){
   if(distance < 50 && distance > 0){
-    if(id == 1){
-      time1 = millis();
-    //  Serial.println("reached 1 first");
-//      Serial.print("First Sensor Time 1: ");
-//      Serial.println(time1);
-//      Serial.print("Time 2: ");
-//      Serial.println(time2);
-    }
-    else{
-      time2 = millis();
-   //   Serial.println("reached 2 first");
-//      Serial.print("Second Sensor Time 1: ");
-//      Serial.println(time1);
-//      Serial.print("Time 2: ");
-//      Serial.println(time2);
-    }
     return true;
   }
   return false;
 }
 
-int checkSensor(int sensor_id) {
-//  float distance1 = 49;
-//  float distance2 = 49;
-//  if (time1 < time2){
-////    Serial.println("Entry");
-//    uploadToFirebase("Entry");
-////    while(distance1 < 70 || distance2 < 70){
-////      distance1 = getDistance(analogRead(analogPin1));
-////      distance2 = getDistance(analogRead(analogPin2));
-////    }
-//  }
-//  else{
-////    Serial.println("Exit");
-//    uploadToFirebase("Exit");
-////      while(distance1 < 70 || distance2 < 70){
-////        distance1 = getDistance(analogRead(analogPin1));
-////        distance2 = getDistance(analogRead(analogPin2));
-////      }
-//  }
-    if(sensor_id == 0) uploadToFirebase("Entry");
-    else uploadToFirebase("Exit");
-}
-
 void uploadToFirebase(String dir) {
   /* Interfacing with Firebase */
-  String path = "/Data";
+//  String path = "/Data";
   String count2 = String(count);
-  count += 1;
-  String jsonData = "{\"Timestamp\":\"231321546\", \"Direction\":\"" + dir + "\", \"Count\":\"" + count2 + "\"}";
+//  count += 1;
+  String path = "/Events";
+//  String jsonData = "{\"Timestamp\":\"231321546\", \"Direction\":\"" + dir + "\", \"Count\":\"" + count2 + "\"}";
+  String jsonData = "{\"Event" + count2 + ":{\"Direction:\"" + dir + "\"}";
   if (Firebase.setJSON(firebaseData, path, jsonData)) { // set sensorVal1ue in Firebase
     Serial.println("data successfully pushed to Firebase");
   }
