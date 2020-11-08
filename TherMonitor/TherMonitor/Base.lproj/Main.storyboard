@@ -17,32 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PYN-Fo-QCz" userLabel="Title Stack View">
-                                <rect key="frame" x="121.5" y="30" width="132.5" height="53.5"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="second" translatesAutoresizingMaskIntoConstraints="NO" id="QdS-py-G7D">
-                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="30"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TherMonitor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdZ-gZ-ZVc">
-                                        <rect key="frame" x="0.0" y="30" width="132.5" height="23.5"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MSF-bH-itR" userLabel="Room Cap Stack View">
-                                <rect key="frame" x="39" y="203.5" width="297" height="260"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="MSF-bH-itR" userLabel="Room Cap Stack View">
+                                <rect key="frame" x="39" y="289.5" width="297" height="88.5"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="0" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD" userLabel="currentRoomCap">
-                                        <rect key="frame" x="0.0" y="0.0" width="297" height="240"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="297" height="58.5"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="50"/>
                                         <color key="textColor" systemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="people currently in this room" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                        <rect key="frame" x="0.0" y="240" width="297" height="20"/>
+                                        <rect key="frame" x="0.0" y="68.5" width="297" height="20"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <color key="textColor" systemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -67,14 +53,15 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                             </stackView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="thermonitor4" translatesAutoresizingMaskIntoConstraints="NO" id="uEB-L6-1Gs">
+                                <rect key="frame" x="80" y="20" width="214" height="178"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ldI-qk-MvK" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="30" id="Ctt-ci-dhi"/>
-                            <constraint firstItem="PYN-Fo-QCz" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="30" id="J8p-8Q-fbc"/>
-                            <constraint firstItem="PYN-Fo-QCz" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="Xi6-65-Uqp"/>
-                            <constraint firstItem="MSF-bH-itR" firstAttribute="top" secondItem="PYN-Fo-QCz" secondAttribute="bottom" constant="120" id="aWF-jw-67z"/>
                             <constraint firstItem="MSF-bH-itR" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="pt0-yJ-6Uc"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="ldI-qk-MvK" secondAttribute="bottom" constant="45" id="ud5-sL-wF7"/>
                             <constraint firstItem="MSF-bH-itR" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="uyd-va-MOl"/>
@@ -98,26 +85,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YEY-qP-bpp" userLabel="Title Stack View">
-                                <rect key="frame" x="121.5" y="30" width="132.5" height="53.5"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="second" translatesAutoresizingMaskIntoConstraints="NO" id="tKP-3O-vzn">
-                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="30"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TherMonitor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbK-dd-CNA">
-                                        <rect key="frame" x="0.0" y="30" width="132.5" height="23.5"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <viewLayoutGuide key="safeArea" id="88J-xn-oCO"/>
-                                <constraints>
-                                    <constraint firstItem="kbK-dd-CNA" firstAttribute="centerX" secondItem="YEY-qP-bpp" secondAttribute="centerX" id="fnp-Nf-gzB"/>
-                                </constraints>
-                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-7I-cLD">
-                                <rect key="frame" x="14" y="113.5" width="347.5" height="28"/>
+                                <rect key="frame" x="14" y="110" width="347.5" height="28"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Traffic: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RM9-pv-Tsv">
                                         <rect key="frame" x="0.0" y="0.0" width="217" height="28"/>
@@ -135,7 +104,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpE-EW-mny" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="18" y="171.5" width="339" height="390.5"/>
+                                <rect key="frame" x="18" y="158" width="339" height="404"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="28z-S3-QJG">
@@ -149,19 +118,22 @@
                                     <action selector="switchSel:" destination="8rJ-Kc-sve" eventType="valueChanged" id="aSl-A2-OXl"/>
                                 </connections>
                             </segmentedControl>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="thermonitor4" translatesAutoresizingMaskIntoConstraints="NO" id="TWX-DW-O8G">
+                                <rect key="frame" x="28" y="32" width="320" height="60"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="28z-S3-QJG" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="0nn-nN-6gL"/>
+                            <constraint firstItem="aZV-7I-cLD" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="110" id="4CJ-ml-dnV"/>
                             <constraint firstItem="aZV-7I-cLD" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="4qd-AB-8qh"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="28z-S3-QJG" secondAttribute="bottom" constant="15" id="7ar-tY-orv"/>
-                            <constraint firstItem="fpE-EW-mny" firstAttribute="top" secondItem="aZV-7I-cLD" secondAttribute="bottom" constant="30" id="7xm-dT-sBg"/>
+                            <constraint firstItem="fpE-EW-mny" firstAttribute="top" secondItem="aZV-7I-cLD" secondAttribute="bottom" constant="20" id="7xm-dT-sBg"/>
+                            <constraint firstItem="TWX-DW-O8G" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="32" id="A7V-XT-r94"/>
+                            <constraint firstItem="TWX-DW-O8G" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="Jhj-6M-DUE"/>
                             <constraint firstItem="fpE-EW-mny" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="VTf-6b-qhp"/>
-                            <constraint firstItem="YEY-qP-bpp" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="30" id="ZOa-wF-L3H"/>
-                            <constraint firstItem="YEY-qP-bpp" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="aJd-qh-HTr"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="fpE-EW-mny" secondAttribute="trailing" constant="18" id="cuB-wq-Ckg"/>
-                            <constraint firstItem="aZV-7I-cLD" firstAttribute="top" secondItem="YEY-qP-bpp" secondAttribute="bottom" constant="30" id="mcQ-vS-PbD"/>
                             <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="fpE-EW-mny" secondAttribute="bottom" constant="56" id="qE4-2M-6b9"/>
                             <constraint firstItem="fpE-EW-mny" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="18" id="t3M-Vj-lYp"/>
                         </constraints>
@@ -185,34 +157,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eSk-L8-6Lt" userLabel="Title Stack View">
-                                <rect key="frame" x="121.5" y="30" width="132.5" height="53.5"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="second" translatesAutoresizingMaskIntoConstraints="NO" id="lYi-Ud-4b1">
-                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="30"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TherMonitor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="we8-vb-KRW">
-                                        <rect key="frame" x="0.0" y="30" width="132.5" height="23.5"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Weekly Traffic" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VH9-U9-m5s">
-                                <rect key="frame" x="28.5" y="113.5" width="318" height="28"/>
+                                <rect key="frame" x="28.5" y="110" width="318" height="28"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="J0t-CF-Vhl">
-                                <rect key="frame" x="100" y="161.5" width="175" height="236"/>
+                                <rect key="frame" x="100" y="158" width="175" height="236"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahV-cW-2Nx">
                                         <rect key="frame" x="0.0" y="0.0" width="175" height="32"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <state key="normal" title="Sunday">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
+                                            <color key="titleColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="sunday:" destination="LjC-wO-OEh" eventType="touchUpInside" id="xfQ-Oa-WbL"/>
@@ -222,7 +180,7 @@
                                         <rect key="frame" x="0.0" y="34" width="175" height="32"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <state key="normal" title="Monday">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
+                                            <color key="titleColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="monday:" destination="LjC-wO-OEh" eventType="touchUpInside" id="DEi-3h-lwr"/>
@@ -232,7 +190,7 @@
                                         <rect key="frame" x="0.0" y="68" width="175" height="32"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <state key="normal" title="Tuesday">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
+                                            <color key="titleColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="tuesday:" destination="LjC-wO-OEh" eventType="touchUpInside" id="IP4-3B-nLy"/>
@@ -242,7 +200,7 @@
                                         <rect key="frame" x="0.0" y="102" width="175" height="32"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <state key="normal" title="Wednesday">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
+                                            <color key="titleColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="wednesday:" destination="LjC-wO-OEh" eventType="touchUpInside" id="cIw-DO-dUU"/>
@@ -252,7 +210,7 @@
                                         <rect key="frame" x="0.0" y="136" width="175" height="32"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <state key="normal" title="Thursday">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
+                                            <color key="titleColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="thursday:" destination="LjC-wO-OEh" eventType="touchUpInside" id="b09-97-TNk"/>
@@ -262,7 +220,7 @@
                                         <rect key="frame" x="0.0" y="170" width="175" height="32"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <state key="normal" title="Friday">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
+                                            <color key="titleColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="friday:" destination="LjC-wO-OEh" eventType="touchUpInside" id="b1V-d2-waa"/>
@@ -272,7 +230,7 @@
                                         <rect key="frame" x="0.0" y="204" width="175" height="32"/>
                                         <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <state key="normal" title="Saturday">
-                                            <color key="titleColor" systemColor="systemTealColor"/>
+                                            <color key="titleColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                         <connections>
                                             <action selector="saturday:" destination="LjC-wO-OEh" eventType="touchUpInside" id="CUv-H5-K8B"/>
@@ -281,23 +239,27 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pqT-vB-cZq" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="417.5" width="335" height="180.5"/>
+                                <rect key="frame" x="20" y="414" width="335" height="184"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="thermonitor4" translatesAutoresizingMaskIntoConstraints="NO" id="8TR-vs-ZE3">
+                                <rect key="frame" x="84" y="32" width="207" height="60"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="i09-9M-ROD"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="i09-9M-ROD" firstAttribute="bottom" secondItem="pqT-vB-cZq" secondAttribute="bottom" constant="20" id="2JY-JK-4cO"/>
-                            <constraint firstItem="VH9-U9-m5s" firstAttribute="top" secondItem="eSk-L8-6Lt" secondAttribute="bottom" constant="30" id="64d-QO-C6X"/>
+                            <constraint firstItem="8TR-vs-ZE3" firstAttribute="centerX" secondItem="1lM-Uy-9Mt" secondAttribute="centerX" id="340-aO-0ZI"/>
+                            <constraint firstItem="VH9-U9-m5s" firstAttribute="top" secondItem="i09-9M-ROD" secondAttribute="top" constant="110" id="4Oa-Z9-V6X"/>
                             <constraint firstItem="pqT-vB-cZq" firstAttribute="centerX" secondItem="1lM-Uy-9Mt" secondAttribute="centerX" id="6h3-Xd-JS2"/>
+                            <constraint firstItem="8TR-vs-ZE3" firstAttribute="centerX" secondItem="1lM-Uy-9Mt" secondAttribute="centerX" id="BJh-oV-w16"/>
                             <constraint firstItem="J0t-CF-Vhl" firstAttribute="centerX" secondItem="1lM-Uy-9Mt" secondAttribute="centerX" id="D8s-Kg-BRQ"/>
                             <constraint firstItem="pqT-vB-cZq" firstAttribute="top" secondItem="J0t-CF-Vhl" secondAttribute="bottom" constant="20" id="Hjn-gi-ZvX"/>
                             <constraint firstItem="VH9-U9-m5s" firstAttribute="centerX" secondItem="1lM-Uy-9Mt" secondAttribute="centerX" id="KWC-98-N7g"/>
                             <constraint firstItem="pqT-vB-cZq" firstAttribute="leading" secondItem="i09-9M-ROD" secondAttribute="leading" constant="20" id="KfK-lW-BkN"/>
-                            <constraint firstItem="eSk-L8-6Lt" firstAttribute="top" secondItem="i09-9M-ROD" secondAttribute="top" constant="30" id="MWl-HE-uLd"/>
-                            <constraint firstItem="eSk-L8-6Lt" firstAttribute="centerX" secondItem="1lM-Uy-9Mt" secondAttribute="centerX" id="U7k-3M-6Zm"/>
                             <constraint firstItem="J0t-CF-Vhl" firstAttribute="top" secondItem="VH9-U9-m5s" secondAttribute="bottom" constant="20" id="UQr-9T-rfZ"/>
+                            <constraint firstItem="8TR-vs-ZE3" firstAttribute="top" secondItem="i09-9M-ROD" secondAttribute="top" constant="32" id="cxr-ij-eTQ"/>
                             <constraint firstItem="i09-9M-ROD" firstAttribute="trailing" secondItem="J0t-CF-Vhl" secondAttribute="trailing" constant="100" id="hE0-WI-Xez"/>
                             <constraint firstItem="i09-9M-ROD" firstAttribute="trailing" secondItem="pqT-vB-cZq" secondAttribute="trailing" constant="20" id="nBP-V8-i67"/>
                             <constraint firstItem="J0t-CF-Vhl" firstAttribute="leading" secondItem="i09-9M-ROD" secondAttribute="leading" constant="100" id="tap-wH-rIb"/>
@@ -327,6 +289,8 @@
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="selectedImageTintColor" red="0.2388936877" green="0.42156633729999998" blue="0.50197345019999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </tabBar>
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
@@ -341,7 +305,7 @@
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="thermonitor4" width="320" height="137"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -356,9 +320,6 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

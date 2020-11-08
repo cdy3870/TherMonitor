@@ -58,6 +58,7 @@ class ThirdViewController: UIViewController {
     }
     
     func makeBarChart(day: UIButton){
+        self.set.colors = ChartColorTemplates.liberty() 
         let data = BarChartData(dataSet: set)
         weekBarChart.data = data
         self.sun.backgroundColor = UIColor.white

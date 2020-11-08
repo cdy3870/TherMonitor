@@ -134,7 +134,7 @@ class SecondViewController: UIViewController {
                     BarChartDataEntry(x: Double(8),y: self.dbHours[17])
               ], label: "Hour")
             
-            //self.set.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
+            self.set.colors = ChartColorTemplates.liberty()             //[UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
 
             let data = BarChartData(dataSet: self.set)
             
@@ -201,7 +201,7 @@ class SecondViewController: UIViewController {
                         BarChartDataEntry(x: Double(7),y: self.dbHours[6]),
                         BarChartDataEntry(x: Double(8),y: self.dbHours[7])
                   ], label: "Hour")
-                
+                self.set.colors = ChartColorTemplates.liberty()
                 let data = BarChartData(dataSet: self.set)
                 
 
@@ -219,7 +219,7 @@ class SecondViewController: UIViewController {
                         BarChartDataEntry(x: Double(7),y: self.dbHours[14]),
                         BarChartDataEntry(x: Double(8),y: self.dbHours[15])
                   ], label: "Hour")
-                
+                self.set.colors = ChartColorTemplates.liberty()
                 let data = BarChartData(dataSet: self.set)
                 
 
@@ -237,7 +237,7 @@ class SecondViewController: UIViewController {
                         BarChartDataEntry(x: Double(7),y: self.dbHours[22]),
                         BarChartDataEntry(x: Double(8),y: self.dbHours[23])
                   ], label: "Hour")
-                
+                self.set.colors = ChartColorTemplates.liberty() 
                 let data = BarChartData(dataSet: self.set)
                 
                 self.barChart.data = data
