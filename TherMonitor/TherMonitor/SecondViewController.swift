@@ -134,6 +134,8 @@ class SecondViewController: UIViewController {
                     BarChartDataEntry(x: Double(8),y: self.dbHours[17])
               ], label: "Hour")
             
+            //self.set.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
+
             let data = BarChartData(dataSet: self.set)
             
 

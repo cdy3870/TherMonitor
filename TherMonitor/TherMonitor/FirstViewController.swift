@@ -24,6 +24,7 @@ class FirstViewController: UIViewController {
 
     var total_room_occupancy = 0
     var max_capacity = 0
+    var old_total_room_occupancy = 0
     var showedAlert = false
 
     override func viewDidLoad() {
@@ -71,17 +72,36 @@ class FirstViewController: UIViewController {
                 
                 //print(self.total_room_occupancy)
                 //print(self.max_capacity)
-                if self.total_room_occupancy >= self.max_capacity && seen == false {
+                if self.total_room_occupancy < self.max_capacity && seen == true{
+                    seen = false
+                }
+                
+                
+                //if self.total_room_occupancy >= self.max_capacity{
+                if self.total_room_occupancy >= self.max_capacity && (seen == false || self.total_room_occupancy != self.old_total_room_occupancy){
                     seen = true
                     print("inside")
+                    self.old_total_room_occupancy = self.total_room_occupancy
                     
                     // create notification content
                     let content = UNMutableNotificationContent()
                     content.title = "Max Capacity Alert"
-                    content.body = "The room has reached capacity."
+                    if self.total_room_occupancy == self.max_capacity {
+                        content.body = "The room has reached capacity."
+                    }
+                    else {
+                        let over = self.total_room_occupancy - self.max_capacity
+                        if over > 1{
+                            content.body = "The room is OVER CAPACITY by " + String(over) + " people."
+                        }
+                        else{
+                            content.body = "The room is OVER CAPACITY by " + String(over) + " person."
+                        }
+                        
+                    }
                     
                     
-                    let date = Date().addingTimeInterval(5)
+                    let date = Date().addingTimeInterval(1)
                     let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
                     
                     let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
